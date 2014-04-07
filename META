@@ -1,3 +1,3 @@
-version="0.30"
+version="0.30-xsc1"
 archive(byte)="dBus.cma"
 archive(native)="dBus.cmxa"

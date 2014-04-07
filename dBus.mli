@@ -21,7 +21,8 @@ type message
 type pending_call
 type watch
 type timeout
-type unique_id
+type watch_id
+type timeout_id
 
 type service = string
 type interface = string
@@ -247,9 +248,15 @@ sig
 	val steal_reply : pending_call -> message
 end
 
-module UniqueID :
+module WatchID :
 sig
-        type t = unique_id
+        type t = watch_id
+        val compare : t -> t -> int
+end
+
+module TimeoutID :
+sig
+        type t = timeout_id
         val compare : t -> t -> int
 end
 
@@ -261,7 +268,7 @@ sig
 	val get_enabled : watch -> bool
 	val get_flags : watch -> flags list
 	val handle : watch -> flags list -> unit
-        val get_id : watch -> unique_id
+        val get_id : watch -> watch_id
 end
 
 module Timeout :
@@ -269,7 +276,7 @@ sig
 	val get_interval : timeout -> int
 	val get_enabled : timeout -> bool
 	val handle : timeout -> unit
-        val get_id : timeout -> unique_id
+        val get_id : timeout -> timeout_id
 end
 
 module Helper :
