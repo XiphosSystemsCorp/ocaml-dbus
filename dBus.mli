@@ -252,12 +252,14 @@ module WatchID :
 sig
         type t = watch_id
         val compare : t -> t -> int
+        val string_of_id : t -> string
 end
 
 module TimeoutID :
 sig
         type t = timeout_id
         val compare : t -> t -> int
+        val string_of_id : t -> string
 end
 
 module Watch :

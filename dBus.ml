@@ -471,6 +471,7 @@ end
 module WatchID = struct
 	type t = watch_id
 	let compare = compare
+	let string_of_id id = Printf.sprintf "W%u" id
 end
 
 module Watch = struct
@@ -488,6 +489,7 @@ end
 module TimeoutID = struct
 	type t = timeout_id
 	let compare = compare
+	let string_of_id id = Printf.sprintf "T%u" id
 end
 
 module Timeout = struct
