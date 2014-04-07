@@ -287,12 +287,12 @@ let append message tys =
 	let is_basic_sig ty =
 		match ty with
 		(* supported basic types *)
-		| SigByte _ | SigBool _ | SigInt16 _ | SigUInt16 _ | SigInt32 _
-		| SigUInt32 _ | SigInt64 _ | SigUInt64 _ | SigDouble _
-		| SigString _ | SigObjectPath _ -> true
+		| SigByte | SigBool | SigInt16 | SigUInt16 | SigInt32
+		| SigUInt32 | SigInt64 | SigUInt64 | SigDouble
+		| SigString | SigObjectPath -> true
 		| _                             -> false
 		in
-	let rec is_sig_value_matching s v =
+	let rec _is_sig_value_matching s v =
 		match (s, v) with
 		(* normal byte *)
 		| (SigByte, (Byte _))
