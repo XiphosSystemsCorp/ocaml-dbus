@@ -23,6 +23,7 @@ type message
 type pending_call
 type watch
 type timeout
+type unique_id = int
 
 type service = string
 type interface = string
@@ -464,6 +465,15 @@ external steal_reply : pending_call -> message
                      = "stub_dbus_pending_call_steal_reply"
 end
 
+(***************** UNIQUEID ********************)
+
+module UniqueID = struct
+	type t = unique_id
+	let compare = compare
+end
+
+(***************** WATCH ********************)
+
 module Watch = struct
 
 type flags = Readable | Writable
@@ -472,6 +482,7 @@ external get_unix_fd : watch -> Unix.file_descr = "stub_dbus_watch_get_unix_fd"
 external get_enabled : watch -> bool = "stub_dbus_watch_get_enabled"
 external get_flags : watch -> flags list = "stub_dbus_watch_get_flags"
 external handle : watch -> flags list -> unit = "stub_dbus_watch_handle"
+external get_id : watch -> unique_id = "stub_dbus_watch_get_id"
 
 end
 
@@ -480,6 +491,7 @@ module Timeout = struct
 external get_interval : timeout -> int = "stub_dbus_timeout_get_interval"
 external get_enabled : timeout -> bool = "stub_dbus_timeout_get_enabled"
 external handle : timeout -> unit = "stub_dbus_timeout_handle"
+external get_id : timeout -> unique_id = "stub_dbus_timeout_get_id"
 
 end
 

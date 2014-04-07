@@ -1834,6 +1834,17 @@ value stub_dbus_pending_call_steal_reply(value pending)
 	CAMLreturn(message);
 }
 
+value stub_dbus_watch_get_id(value watch)
+{
+	CAMLparam1(watch);
+	DBusWatch *w;
+	int id;
+
+	w = DBusWatch_val(watch);
+	id = ((long) w) / (2 * sizeof(void *)); /* Cross fingers */
+	CAMLreturn(Val_int(id));
+}
+
 value stub_dbus_watch_get_unix_fd(value watch)
 {
 	CAMLparam1(watch);
@@ -1885,6 +1896,17 @@ value stub_dbus_watch_handle(value watch, value flags)
 	dbus_watch_handle(DBusWatch_val(watch), c_flags);
 
 	CAMLreturn(Val_unit);
+}
+
+value stub_dbus_timeout_get_id(value timeout)
+{
+	CAMLparam1(timeout);
+	DBusTimeout *t;
+	int id;
+
+	t = DBusTimeout_val(timeout);
+	id = ((long) t) / (2 * sizeof(void *)); /* Cross fingers */
+	CAMLreturn(Val_int(id));
 }
 
 value stub_dbus_timeout_get_interval(value timeout)
