@@ -10,7 +10,6 @@ OCAML_PKG_NAME = dbus
 
 OCAMLABI := $(shell $(OCAMLC) -version)
 OCAMLLIBDIR := $(shell $(OCAMLC) -where)
-OCAMLDESTDIR ?= $(OCAMLLIBDIR)
 
 OCAML_TEST_INC = -I `ocamlfind query oUnit`
 OCAML_TEST_LIB = `ocamlfind query oUnit`/oUnit.cmxa
@@ -64,15 +63,15 @@ check:
 
 .PHONY: install
 install: $(LIBS)
-	ocamlfind install -destdir $(OCAMLDESTDIR) -ldconf ignore $(OCAML_PKG_NAME) META $(INTERFACES) $(LIBS) *.a *.so *.cmx
+	ocamlfind install -ldconf ignore $(OCAML_PKG_NAME) META $(INTERFACES) $(LIBS) *.a *.so *.cmx
 
 install-opt: install
 
 install-byte: all-byte
-	ocamlfind install -destdir $(OCAMLDESTDIR) -ldconf ignore $(OCAML_PKG_NAME) META $(INTERFACES) $(LIBS_BYTE) *.a *.so
+	ocamlfind install -ldconf ignore $(OCAML_PKG_NAME) META $(INTERFACES) $(LIBS_BYTE) *.a *.so
 
 uninstall:
-	ocamlfind remove -destdir $(OCAMLDESTDIR) $(OCAML_PKG_NAME)
+	ocamlfind remove $(OCAML_PKG_NAME)
 
 test: dBus.cmxa test.ml
 	$(OCAMLOPT) -o $@ -cclib -L. unix.cmxa $+
